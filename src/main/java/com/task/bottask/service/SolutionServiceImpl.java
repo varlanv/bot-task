@@ -1,9 +1,5 @@
 package com.task.bottask.service;
 
-<<<<<<<HEAD
-        =======
-import com.task.bottask.Facade;
->>>>>>>qwe
 import com.task.bottask.domain.Department;
 import com.task.bottask.domain.Lector;
 import com.task.bottask.repository.DepartmentRepository;
