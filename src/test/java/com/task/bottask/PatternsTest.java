@@ -15,7 +15,7 @@ public class PatternsTest {
      * {head_of_department_name}
      */
     @Test
-    public void task1() {
+    public void head_of_department_pattern() {
         Pattern case1 = Pattern.compile("(?<=Who is head of department ).+");
         String input = "Who is head of department dep";
 
@@ -32,7 +32,7 @@ public class PatternsTest {
      * professors -{professors_count}
      */
     @Test
-    public void task2() {
+    public void department_statistic_pattern() {
         Pattern case2 = Pattern.compile("(?<=Show ).*(?= statistic)");
         String input = "Show dep statistic";
 
@@ -48,7 +48,7 @@ public class PatternsTest {
      * {average_salary}
      */
     @Test
-    public void task3() {
+    public void average_salary_pattern() {
         Pattern case3 = Pattern.compile("(?<=Show the average salary for department ).*");
         String input = "Show the average salary for department dep";
 
@@ -63,7 +63,7 @@ public class PatternsTest {
      * Answer: {employee_count}
      */
     @Test
-    public void task4() {
+    public void employee_count_pattern() {
         Pattern case4 = Pattern.compile("(?<=Show count of employee for ).*");
         String input = "Show count of employee for dep";
 
@@ -79,7 +79,7 @@ public class PatternsTest {
      * Answer: Ivan Petrenko, Petro Ivanov
      */
     @Test
-    public void task5() {
+    public void global_search_pattern() {
         Pattern case5 = Pattern.compile("(?<=Global search by ).*");
         String input = "Global search by temp";
 

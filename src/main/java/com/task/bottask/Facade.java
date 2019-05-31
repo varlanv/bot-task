@@ -2,7 +2,6 @@ package com.task.bottask;
 
 import com.task.bottask.domain.Lector;
 import com.task.bottask.service.SolutionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -24,55 +23,46 @@ public class Facade {
         this.service = service;
     }
 
-    public void headOfDepartment(String line) {
-        Matcher matcher = case1.matcher(line);
-        if (matcher.find()) {
-            Lector lector = service.headOfDepartment(matcher.group());
-            System.out.println("Head of " + matcher.group() + " department is " + lector.getFirstName() + " " + lector.getLastName());
-        }
-    }
+    public String getAnswer(String line) {
+        Matcher matcher;
 
-    public void departmentStatistic(String line) {
-        Matcher matcher = case2.matcher(line);
-        if (matcher.find()) {
-            Map<String, Long> stringLongMap = service.departmentStatistics(matcher.group());
-            System.out.println(stringLongMap);
-        }
-    }
+        StringBuilder answer = new StringBuilder();
 
-    public void averageSalary(String line) {
-        Matcher matcher = case3.matcher(line);
-        if (matcher.find()) {
-            String avgSalary = service.averageSalary(matcher.group());
-            System.out.println("The average salary of " + line + " is " + avgSalary);
-
-
-        }
-    }
-
-    public void lectorsCount(String line) {
-        Matcher matcher = case4.matcher(line);
-        if (matcher.find()) {
-            int employeeCount = service.lectorsCount(matcher.group());
-            System.out.println(employeeCount);
-        }
-    }
-
-    public void lectorsByTemplate(String line) {
-        Matcher matcher = case5.matcher(line);
-        if (matcher.find()) {
-            List<Lector> lectorsByTemplate = service.findByTemplate(matcher.group());
-
-            if (lectorsByTemplate.isEmpty()) {
-                System.out.println("No matches found by given template " + "\"" + matcher.group() + "\"");
-            }
-            lectorsByTemplate.forEach(lect -> System.out.println(lect.getFirstName() + " " + lect.getLastName()));
-        }
-    }
-
-    public void exit(String line) {
         if (line.equals("exit")) {
             System.exit(0);
+        } else if ((matcher = case1.matcher(line)).find()) {
+            Lector lector = service.headOfDepartment(matcher.group());
+            answer.append("Head of ")
+                    .append(matcher.group())
+                    .append(" department is ")
+                    .append(lector.getFirstName())
+                    .append(" ")
+                    .append(lector.getLastName());
+
+        } else if ((matcher = case2.matcher(line)).find()) {
+            Map<String, Long> stringLongMap = service.departmentStatistics(matcher.group());
+            answer.append(stringLongMap);
+
+        } else if ((matcher = case3.matcher(line)).find()) {
+            String avgSalary = service.averageSalary(matcher.group());
+            answer.append(avgSalary);
+
+        } else if ((matcher = case4.matcher(line)).find()) {
+            int lectorsCount = service.lectorsCount(matcher.group());
+            answer.append(lectorsCount);
+
+        } else if ((matcher = case5.matcher(line)).find()) {
+            List<Lector> lectorsByTemplate = service.findByTemplate(matcher.group());
+
+            lectorsByTemplate.forEach(lect -> answer
+                    .append(lect.getFirstName())
+                    .append(" ")
+                    .append(lect.getLastName())
+                    .append("\n"));
+        } else {
+            throw new UnsupportedOperationException("Unknown command");
         }
+
+        return answer.toString();
     }
 }
