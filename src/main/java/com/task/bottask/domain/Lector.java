@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "lector", schema = "task")
+@Table(name = "lectors", schema = "task")
 public class Lector {
 
     @Id
@@ -16,7 +16,7 @@ public class Lector {
     private Degree degree;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(schema = "task", name = "lector_department",
+    @JoinTable(schema = "task", name = "lectors_departments",
             joinColumns = @JoinColumn(name = "lector_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"))
     private List<Department> departments;

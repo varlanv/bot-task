@@ -24,9 +24,4 @@ public interface LectorRepository extends JpaRepository<Lector, Integer> {
             "WHERE d.name = :department " +
             "AND l.headOfDepartment = true ")
     Optional<Lector> headOfDepartment(@Param("department") String department);
-
-//    @Query("SELECT l FROM Lector l " +
-//            "WHERE l.departments IN (SELECT d FROM Department d WHERE d.name=:department ) " +
-//            "AND l.headOfDepartment = true ")
-//    Optional<Lector> headOfDepartment(@Param("department") String department);
 }

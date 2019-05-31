@@ -4,23 +4,23 @@ DROP SCHEMA IF EXISTS task CASCADE;
 
 CREATE SCHEMA task;
 
-CREATE TABLE task.department
+CREATE TABLE task.departments
 (
     id   INTEGER UNIQUE,
     name VARCHAR(50),
 
-    CONSTRAINT department_pkey PRIMARY KEY (id)
+    CONSTRAINT departments_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE task.degree
+CREATE TABLE task.degrees
 (
     id    INTEGER UNIQUE,
     title VARCHAR(50) UNIQUE,
 
-    CONSTRAINT degree_pkey PRIMARY KEY (id)
+    CONSTRAINT degrees_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE task.lector
+CREATE TABLE task.lectors
 (
     id                 SERIAL,
     first_name         VARCHAR(50),
@@ -29,14 +29,14 @@ CREATE TABLE task.lector
     salary             DECIMAL,
     head_of_department BOOLEAN,
 
-    CONSTRAINT lector_degree PRIMARY KEY (id),
-    CONSTRAINT lector_degree_fkey FOREIGN KEY (degree_id) REFERENCES task.degree (id),
+    CONSTRAINT lectors_degree PRIMARY KEY (id),
+    CONSTRAINT lectors_degree_fkey FOREIGN KEY (degree_id) REFERENCES task.degrees (id),
 );
 
-CREATE TABLE task.lector_department
+CREATE TABLE task.lectors_departments
 (
-    lector_id     INTEGER REFERENCES task.lector (id),
-    department_id INTEGER REFERENCES task.department (id),
+    lector_id     INTEGER REFERENCES task.lectors (id),
+    department_id INTEGER REFERENCES task.departments (id),
 
-    CONSTRAINT lector_department_pkey PRIMARY KEY (lector_id, department_id)
+    CONSTRAINT lectors_departments_pkey PRIMARY KEY (lector_id, department_id)
 );
