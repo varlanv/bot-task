@@ -1,5 +1,9 @@
 package com.task.bottask.service;
 
+<<<<<<<HEAD
+        =======
+import com.task.bottask.Facade;
+>>>>>>>qwe
 import com.task.bottask.domain.Department;
 import com.task.bottask.domain.Lector;
 import com.task.bottask.repository.DepartmentRepository;
@@ -73,6 +77,12 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     public List<Lector> findByTemplate(String template) {
-        return lectorRepository.findByTemplate(template);
+
+        List<Lector> lectorsByTemplate = lectorRepository.findByTemplate(template);
+        if (lectorsByTemplate.isEmpty()) {
+            throw new NoSuchElementException("No matches for given template '" + template + "'");
+        }
+
+        return lectorsByTemplate;
     }
 }

@@ -1,6 +1,5 @@
 package com.task.bottask;
 
-import com.task.bottask.domain.Lector;
 import com.task.bottask.repository.DepartmentRepository;
 import com.task.bottask.repository.LectorRepository;
 import com.task.bottask.service.SolutionService;
@@ -14,10 +13,11 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Map;
+import java.util.NoSuchElementException;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataJpaTest
 @Import(SolutionServiceImpl.class)
@@ -31,8 +31,7 @@ public class SolutionServiceTest {
     LectorRepository lectorRepository;
     @Autowired
     DepartmentRepository departmentRepository;
-
-    final List<String> departments = asList("Biology", "Chemistry", "Art", "History", "Technology");
+    List<String> departments = asList("Biology", "Chemistry", "Art", "History", "Technology");
 
     @Test
     public void context_should_construct() {
@@ -46,48 +45,12 @@ public class SolutionServiceTest {
     }
 
     @Test
-    public void two() {
-        long professors = 1;
-        long assistants = 2;
-        Map<String, Long> chemistry = service.departmentStatistics("Chemistry");
 
-        assertThat(chemistry).extracting("professor", "assistant").containsOnly(professors, assistants);
-    }
+    public void find_by_template_should_throw_exception_on_incorrect_argument() {
+        String template = "aksdak";
 
-    @Test
-    public void tt() {
-        departments.forEach(d -> service.departmentStatistics(d));
-    }
-
-    @Test
-    public void three() {
-        String chemistry = service.averageSalary("Chemistry");
-
-        assertThat(chemistry).isEqualTo("10666.67"); //13000+9000+10000 / 3
-    }
-
-    @Test
-    public void thr() {
-        departments.forEach(d -> service.averageSalary(d));
-    }
-
-    @Test
-    public void four() {
-        int chemistry = service.lectorsCount("Chemistry");
-
-        assertThat(chemistry).isEqualTo(3);
-    }
-
-    @Test
-    public void fr() {
-        departments.forEach(d -> service.lectorsCount(d));
-    }
-
-    @Test
-    public void five() {
-        List<Lector> daw = service.findByTemplate("daw");
-
-        assertThat(daw.size()).isEqualTo(1);
-        assertThat(daw).extracting("lastName").containsOnly("Dawkings");
+        assertThatThrownBy(() -> service.findByTemplate(template))
+                .isInstanceOf(NoSuchElementException.class)
+                .hasMessage("No matches for given template '" + template + "'");
     }
 }
