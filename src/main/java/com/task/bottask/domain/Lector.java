@@ -15,7 +15,7 @@ public class Lector {
     @ManyToOne
     private Degree degree;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(schema = "task", name = "lector_department",
             joinColumns = @JoinColumn(name = "lector_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "department_id", referencedColumnName = "id"))

@@ -10,7 +10,7 @@ public class Department {
 
     @Id
     private Integer id;
-    @ManyToMany(mappedBy = "departments")
+    @ManyToMany(mappedBy = "departments", fetch = FetchType.EAGER)
     private List<Lector> lectors;
     private String name;
 

@@ -36,7 +36,6 @@ public class SolutionServiceTest {
         assertThat(service).isNotNull();
     }
 
-
     @Test
     public void one() {
         Lector lector = service.headOfDepartment("Biology");

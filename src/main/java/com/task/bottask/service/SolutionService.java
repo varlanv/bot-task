@@ -26,18 +26,18 @@ public class SolutionService implements SolService {
         this.departmentRepository = departmentRepository;
     }
 
-    public Lector headOfDepartment(String department) {
-        return lectorRepository
-                .headOfDepartment(department)
-                .orElseThrow(() -> new NoSuchElementException("Department does not exist"));
-    }
-
     private List<Lector> lectorsByDepartment(String departmentName) {
         Department department =
                 departmentRepository
                         .findByName(departmentName)
                         .orElseThrow(() -> new NoSuchElementException("Department does not exist"));
         return department.getLectors();
+    }
+
+    public Lector headOfDepartment(String department) {
+        return lectorRepository
+                .headOfDepartment(department)
+                .orElseThrow(() -> new NoSuchElementException("Department does not exist"));
     }
 
     public Map<String, Long> departmentStatistics(String departmentName) {
